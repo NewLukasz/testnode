@@ -1,6 +1,6 @@
 const http = require('http');
 
-alert(10);
+console.log('TEST');
 
 const server = http.createServer((req, res) => {
   alert(20);
