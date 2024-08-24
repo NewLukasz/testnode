@@ -1,8 +1,14 @@
-# Use the official PHP image with PHP-FPM
-FROM php:7.4-fpm
+# Use the official PHP image with Apache
+FROM php:8.0-apache
 
-# Copy the PHP source code to the /var/www/html/ directory in the container
-COPY index.php /var/www/html/
+# Copy the content of the current directory to the container's /var/www/html directory
+COPY . /var/www/html
 
-# Expose port 1000 on the container
-EXPOSE 1000
+# Expose port 3000 to the outside world
+EXPOSE 3000
+
+# Change Apache to listen on port 3000 instead of 80
+RUN sed -i 's/80/3000/g' /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+# Start the Apache server
+CMD ["apache2-foreground"]
